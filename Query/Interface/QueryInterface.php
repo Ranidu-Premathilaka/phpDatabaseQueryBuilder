@@ -1,6 +1,6 @@
 <?php
 Interface QueryInterface{
-    public function getTable(): string;
-    public function getColumns(): array;
+    public function setTable(ExpressionInterface $table);
+    public function getTable(): ExpressionInterface;
     public function getWhere(): ?PredicateInterface;
 }

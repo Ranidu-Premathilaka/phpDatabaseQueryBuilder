@@ -8,13 +8,13 @@ class SelectQuery implements QueryInterface{
     private $offset = null;
     private $joins = [];
 
-    public function setTable($table){
+    public function setTable(ExpressionInterface $table){
         $this->table = $table;
         return $this;
     }
 
-    public function setColumns(array $columns){
-        $this->columns = $columns;
+    public function setColumns(ExpressionInterface $columns){
+        $this->columns[] = $columns;
         return $this;
     }
 
