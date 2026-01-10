@@ -3,9 +3,11 @@ require_once __DIR__ . '/init.php';
 
 $selectQuery = new SelectQuery();
 echo "Init select Query...\n";
-$selectQuery->setTable('users')
-           ->setColumns(['id', 'name', 'email'])
-           ->addWhere(new AndCondition(
+$selectQuery->setTable(new Table('users'))
+           ->setColumns(new Column('id'))
+           ->setColumns(new Column('name'))
+           ->setColumns(new Column('email'))
+           ->setWhere(new AndCondition(
                         new IsEquals(new Column('country'), new Literal('USA')),
                         new IsEquals(new Column('status'), new FunctionCall('LOWER',new Literal('active'), new Literal('inactive'))),
                         new IsEquals(new Column('age'), new Literal(30)),
