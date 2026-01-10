@@ -11,6 +11,11 @@ final class SelectSqlQueryCompiler extends SqlQueryCompiler{
             $sql .= $whereQueryFragment->getString();
         }
 
+        if($query->getOrderBy()){
+            $orderByQueryFragment = $this->compileOrderBy($query->getOrderBy());
+            $sql .= $orderByQueryFragment->getString();
+        }
+
         return new CompiledQuery($sql, $this->ParameterContainer->getParameters());
     }
 }

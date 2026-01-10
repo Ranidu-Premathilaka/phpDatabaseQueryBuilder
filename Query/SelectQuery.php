@@ -3,6 +3,7 @@ class SelectQuery implements QueryInterface{
     private $table;
     private $columns = [];
     private $where = null;
+    private $orderBy = [];
 
     public function setTable($table){
         $this->table = $table;
@@ -19,6 +20,11 @@ class SelectQuery implements QueryInterface{
         return $this;
     }
 
+    public function addOrderBy(ExpressionInterface $expression){
+        $this ->orderBy[] = $expression;
+        return $this;
+    }
+
     public function getTable(): string{
         return $this->table;
     }
@@ -31,4 +37,7 @@ class SelectQuery implements QueryInterface{
         return $this->where;
     }
 
+    public function getOrderBy(): array{
+        return $this->orderBy;
+    }
 }

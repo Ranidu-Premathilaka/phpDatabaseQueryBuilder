@@ -14,6 +14,9 @@ $selectQuery->setTable('users')
                             new IsEquals(new Column('role'), new Literal('user'))
                         )
                     ))
+            ->addOrderBy(new Desc(new Column('created_at')))
+            ->addOrderBy(new Asc(new Column('name')))
+            
 ;
 
 $queryCompiler = new SelectSqlQueryCompiler();

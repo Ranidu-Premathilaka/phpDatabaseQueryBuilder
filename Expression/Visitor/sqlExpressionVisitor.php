@@ -25,4 +25,13 @@ class sqlExpressionVisitor implements ExpressionVisitorInterface{
         return new QueryFragment($parameterPlaceholder);
     }
 
+    public function visitAsc(Asc $asc){
+        $exprFragment = $asc->getExpression()->accept($this);
+        return new QueryFragment($exprFragment->getString() . ' ASC');
+    }
+
+    public function visitDesc(Desc $desc){
+        $exprFragment = $desc->getExpression()->accept($this);
+        return new QueryFragment($exprFragment->getString() . ' DESC');
+    }
 }
