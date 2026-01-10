@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Represents an ASCENDING sort order expression.
+ *
+ * Usage:
+ * ```php
+ * $query->addOrderBy(new Asc(new Column('created_at')));
+ * ```
+ */
 class Asc implements ExpressionInterface{
     private ExpressionInterface $expression;
 

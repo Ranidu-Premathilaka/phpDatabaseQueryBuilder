@@ -1,4 +1,14 @@
 <?php
+
+/**
+ * Represents a SQL function call.
+ * 
+ * Usage:
+ * ```php
+ * new FunctionCall('LOWER', new Literal('active'), new Literal('inactive'))
+ * new FunctionCall('COUNT', new Column('id'))
+ * ```
+ */
 class FunctionCall implements ExpressionInterface{
     private $functionName;
     private $arguments = [];

@@ -1,4 +1,14 @@
 <?php
+
+/**
+ * Represents an equality comparison (EQUALS / =).
+ * 
+ * Usage:
+ * ```php
+ * new IsEquals(new Column('country'), new Literal('USA'))
+ * new IsEquals(new Column('user_id'), new Column('id', new Table('users')))
+ * ```
+ */
 class IsEquals implements ComparisonInterface{
     private $column;
     private $value;

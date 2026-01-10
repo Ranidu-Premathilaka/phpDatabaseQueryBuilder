@@ -1,4 +1,16 @@
 <?php
+
+/**
+ * Represents a logical OR condition linking multiple predicates.
+ * 
+ * Usage:
+ * ```php
+ * new OrCondition(
+ *     new IsEquals(new Column('role'), new Literal('admin')),
+ *     new IsEquals(new Column('role'), new Literal('user'))
+ * )
+ * ```
+ */
 class OrCondition implements LogicalInterface{
     private $conditions = [];
 

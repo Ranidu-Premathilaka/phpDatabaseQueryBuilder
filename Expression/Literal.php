@@ -1,4 +1,14 @@
 <?php
+
+/**
+ * Represents a literal value (number, string).
+ * 
+ * Usage:
+ * ```php
+ * new Literal('USA')
+ * new Literal(30)
+ * ```
+ */
 class Literal implements ExpressionInterface{
     private $value;
 

@@ -1,4 +1,16 @@
 <?php
+
+/**
+ * Represents a logical AND condition linking multiple predicates.
+ * 
+ * Usage:
+ * ```php
+ * new AndCondition(
+ *     new IsEquals(new Column('age'), new Literal(30)),
+ *     new IsEquals(new Column('active'), new Literal(true))
+ * )
+ * ```
+ */
 class AndCondition implements LogicalInterface{
     private $conditions = [];
 

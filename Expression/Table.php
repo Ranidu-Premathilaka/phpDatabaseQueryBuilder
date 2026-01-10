@@ -1,4 +1,14 @@
 <?php
+
+/**
+ * Represents a database table.
+ * 
+ * Usage:
+ * ```php
+ * new Table('users')
+ * new Table('orders', 'o') // with alias
+ * ```
+ */
 class Table implements ExpressionInterface{
     private $name;
     private $alias;

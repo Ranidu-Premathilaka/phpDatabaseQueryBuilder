@@ -1,4 +1,14 @@
 <?php
+
+/**
+ * Represents a database column reference.
+ *
+ * Usage:
+ * ```php
+ * new Column('name')
+ * new Column('id', new Table('users'))
+ * ```
+ */
 class Column implements ExpressionInterface{
     private $column;
     private $table;
