@@ -7,7 +7,16 @@ class sqlExpressionVisitor implements ExpressionVisitorInterface{
     }
 
     public function visitColumn(Column $column){
-        return new QueryFragment($column->getName());
+        $columnName = $column->getName();
+        $tableObject = $column->getTable();
+        $tableReference = "";
+
+        if($tableObject !== null && $tableObject instanceof Table){
+            $tableName = $tableObject->getAlias() ?: $tableObject->getName();
+            $tableReference = $tableName . ".";
+        }
+
+        return new QueryFragment($tableReference . $columnName);
     }
 
     public function visitFunctionCall(FunctionCall $functionCall){
