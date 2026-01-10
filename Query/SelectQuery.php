@@ -4,6 +4,8 @@ class SelectQuery implements QueryInterface{
     private $columns = [];
     private $where = null;
     private $orderBy = [];
+    private $limit = null;
+    private $offset = null;
 
     public function setTable($table){
         $this->table = $table;
@@ -25,6 +27,16 @@ class SelectQuery implements QueryInterface{
         return $this;
     }
 
+    public function addLimit(ExpressionInterface $limit){
+        $this->limit = $limit;
+        return $this;
+    }
+
+    public function addOffset(ExpressionInterface $offset){
+        $this->offset = $offset;
+        return $this;
+    }
+
     public function getTable(): string{
         return $this->table;
     }
@@ -39,5 +51,13 @@ class SelectQuery implements QueryInterface{
 
     public function getOrderBy(): array{
         return $this->orderBy;
+    }
+
+    public function getLimit(): ?ExpressionInterface{
+        return $this->limit;
+    }
+
+    public function getOffset(): ?ExpressionInterface{
+        return $this->offset;
     }
 }
