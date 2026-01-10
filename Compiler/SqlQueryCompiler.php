@@ -24,4 +24,16 @@ abstract class SqlQueryCompiler implements QueryCompilerInterface{
         return new QueryFragment(' ORDER BY ' . implode(', ', $fragments));        
 
     }
+
+    protected function compileLimit(ExpressionInterface $limit): QueryFragmentInterface{
+        $visitor = new sqlExpressionVisitor($this->ParameterContainer);
+        $limitFragment = $limit->accept($visitor);
+        return new QueryFragment(' LIMIT ' . $limitFragment->getString());
+    }
+
+    protected function compileOffset(ExpressionInterface $offset): QueryFragmentInterface{
+        $visitor = new sqlExpressionVisitor($this->ParameterContainer);
+        $offsetFragment = $offset->accept($visitor);
+        return new QueryFragment(' OFFSET ' . $offsetFragment->getString());
+    }
 }

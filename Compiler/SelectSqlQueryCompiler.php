@@ -16,6 +16,16 @@ final class SelectSqlQueryCompiler extends SqlQueryCompiler{
             $sql .= $orderByQueryFragment->getString();
         }
 
+        if($query->getLimit()){
+            $limitQueryFragment = $this->compileLimit($query->getLimit());
+            $sql .= $limitQueryFragment->getString();
+        }
+
+        if($query->getOffset()){
+            $offsetQueryFragment = $this->compileOffset($query->getOffset());
+            $sql .= $offsetQueryFragment->getString();
+        }
+
         return new CompiledQuery($sql, $this->ParameterContainer->getParameters());
     }
 }
