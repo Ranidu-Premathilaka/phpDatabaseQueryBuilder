@@ -20,12 +20,20 @@ require_once __DIR__ . '/Predicate/Interface/ComparisonVisitorInterface.php';
 require_once __DIR__ . '/Predicate/Interface/LogicalVisitorInterface.php';
 require_once __DIR__ . '/Predicate/Interface/TotalPredicateVisitorInterface.php';
 
+// Join interfaces
+require_once __DIR__ . '/Join/Interface/JoinInterface.php';
+require_once __DIR__ . '/Join/Interface/JoinVisitorInterface.php';
+
 // Query interfaces
 require_once __DIR__ . '/Query/Interface/QueryInterface.php';
 
 // Compiler interfaces
 require_once __DIR__ . '/Compiler/Interface/QueryCompilerInterface.php';
 
+
+// ========== ENUMS ==========
+// Join Enums
+require_once __DIR__ . '/Join/Enum/JoinEnum.php';
 
 // ========== IMPLEMENTATIONS ==========
 
@@ -49,6 +57,10 @@ require_once __DIR__ . '/Predicate/Comparison/IsEquals.php';
 require_once __DIR__ . '/Predicate/Logical/AndCondition.php';
 require_once __DIR__ . '/Predicate/Logical/OrCondition.php';
 require_once __DIR__ . '/Predicate/Visitor/SqlPredicateVisitor.php';
+
+// Join implementations
+require_once __DIR__ . '/Join/Join.php';
+require_once __DIR__ . '/Join/Visitor/SqlJoinVisitor.php';
 
 // Query implementations
 require_once __DIR__ . '/Query/SelectQuery.php';

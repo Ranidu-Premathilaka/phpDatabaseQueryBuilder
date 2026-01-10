@@ -6,6 +6,7 @@ class SelectQuery implements QueryInterface{
     private $orderBy = [];
     private $limit = null;
     private $offset = null;
+    private $joins = [];
 
     public function setTable($table){
         $this->table = $table;
@@ -37,6 +38,23 @@ class SelectQuery implements QueryInterface{
         return $this;
     }
 
+    public function innerJoin(ExpressionInterface $table, PredicateInterface $onCondition){
+        $this->joins[] = new Join(JoinEnum::INNER, $table, $onCondition);
+        return $this;
+    }
+    public function leftJoin(ExpressionInterface $table, PredicateInterface $onCondition){
+        $this->joins[] = new Join(JoinEnum::LEFT, $table, $onCondition);
+        return $this;
+    }
+    public function rightJoin(ExpressionInterface $table, PredicateInterface $onCondition){
+        $this->joins[] = new Join(JoinEnum::RIGHT, $table, $onCondition);
+        return $this;
+    }
+    public function outerJoin(ExpressionInterface $table, PredicateInterface $onCondition){
+        $this->joins[] = new Join(JoinEnum::OUTER, $table, $onCondition);
+        return $this;
+    }
+
     public function getTable(): string{
         return $this->table;
     }
@@ -59,5 +77,10 @@ class SelectQuery implements QueryInterface{
 
     public function getOffset(): ?ExpressionInterface{
         return $this->offset;
+    }
+
+    public function getJoins(): array{
+        // Return the joins
+        return $this->joins;
     }
 }
