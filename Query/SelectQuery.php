@@ -1,5 +1,5 @@
 <?php
-class SelectQuery implements QueryInterface{
+class SelectQuery implements SelectQueryInterface{
     private $table;
     private $columns = [];
     private $where = null;
@@ -18,8 +18,8 @@ class SelectQuery implements QueryInterface{
         return $this;
     }
 
-    public function addWhere(PredicateInterface $conditions){
-        $this->where = $conditions;
+    public function setWhere(?PredicateInterface $where){
+        $this->where = $where;
         return $this;
     }
 
@@ -55,7 +55,7 @@ class SelectQuery implements QueryInterface{
         return $this;
     }
 
-    public function getTable(): string{
+    public function getTable(): ExpressionInterface{
         return $this->table;
     }
 
