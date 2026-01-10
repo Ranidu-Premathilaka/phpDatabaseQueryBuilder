@@ -7,6 +7,24 @@ abstract class SqlQueryCompiler implements QueryCompilerInterface{
         $this->ParameterContainer = new ParameterContainer();
     }
 
+    protected function compileTable(ExpressionInterface $table): QueryFragmentInterface{
+        $visitor = new SqlExpressionVisitor($this->ParameterContainer);
+        $tableString = $table->accept($visitor)->getString();
+
+        return new QueryFragment($tableString);
+    }
+
+    protected function compileColumns(array $columns): QueryFragmentInterface{
+        $columnFragments = [];
+        $visitor = new SqlExpressionVisitor($this->ParameterContainer);
+
+        foreach($columns as $column){
+            $columnFragments[] = $column->accept($visitor)->getString();
+        }
+
+        return new QueryFragment(implode(', ', $columnFragments));
+    }
+
     protected function compileWhere(PredicateInterface $predicate): QueryFragmentInterface{
         $visitor = new SqlPredicateVisitor($this->ParameterContainer);
         $queryFragment = $predicate->accept($visitor);

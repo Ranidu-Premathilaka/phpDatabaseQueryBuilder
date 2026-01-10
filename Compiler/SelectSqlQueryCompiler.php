@@ -2,9 +2,12 @@
 // Final class for orchestrating SELECT query compilation
 final class SelectSqlQueryCompiler extends SqlQueryCompiler{
     public function compile(QueryInterface $query) : CompiledQueryInterface{
-        $table = $query->getTable();
-        $columns = implode(', ', $query->getColumns());
-        $sql = "SELECT $columns FROM $table";
+        $sql = "SELECT ";
+        $columnsFragment = $this->compileColumns($query->getColumns());
+        $sql .= $columnsFragment->getString();
+        $sql .= " FROM ";
+        $tableFragment = $this->compileTable($query->getTable());
+        $sql .= $tableFragment->getString();
 
         if($query->getJoins()){
             $joinFragment = $this->compileJoins($query->getJoins());
