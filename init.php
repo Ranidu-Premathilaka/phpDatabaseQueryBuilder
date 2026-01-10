@@ -66,7 +66,9 @@ require_once __DIR__ . '/Join/Visitor/SqlJoinVisitor.php';
 
 // Query implementations
 require_once __DIR__ . '/Query/SelectQuery.php';
+require_once __DIR__ . '/Query/UpdateQuery.php';
 
 // Compiler implementations
 require_once __DIR__ . '/Compiler/SqlQueryCompiler.php';
 require_once __DIR__ . '/Compiler/SelectSqlQueryCompiler.php';
+require_once __DIR__ . '/Compiler/UpdateSqlQueryCompiler.php';
