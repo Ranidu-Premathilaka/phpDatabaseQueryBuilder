@@ -31,9 +31,20 @@ abstract class SqlQueryCompiler implements QueryCompilerInterface{
         return new QueryFragment(' WHERE ' . $queryFragment->getString());
     }
 
+    protected function compileSetClauses(array $setClauses): QueryFragmentInterface{
+        $fragments = [];
+        $visitor = new SqlPredicateVisitor($this->ParameterContainer);
+
+        foreach($setClauses as $expressionObject){
+            $fragments[] = $expressionObject->accept($visitor)->getString();
+        }
+
+        return new QueryFragment(' SET ' . implode(', ', $fragments));        
+    }
+
     protected function compileOrderBy(array $orderBy): QueryFragmentInterface{
         $fragments = [];
-        $visitor = new sqlExpressionVisitor($this->ParameterContainer);
+        $visitor = new SqlExpressionVisitor($this->ParameterContainer);
 
         foreach($orderBy as $orderExpression){
             $fragments[] = $orderExpression->accept($visitor)->getString();
