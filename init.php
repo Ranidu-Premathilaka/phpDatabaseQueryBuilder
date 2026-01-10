@@ -26,6 +26,8 @@ require_once __DIR__ . '/Join/Interface/JoinVisitorInterface.php';
 
 // Query interfaces
 require_once __DIR__ . '/Query/Interface/QueryInterface.php';
+require_once __DIR__ . '/Query/Interface/SelectQueryInterface.php';
+require_once __DIR__ . '/Query/Interface/UpdateQueryInterface.php';
 
 // Compiler interfaces
 require_once __DIR__ . '/Compiler/Interface/QueryCompilerInterface.php';
