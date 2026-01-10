@@ -34,4 +34,12 @@ class sqlExpressionVisitor implements ExpressionVisitorInterface{
         $exprFragment = $desc->getExpression()->accept($this);
         return new QueryFragment($exprFragment->getString() . ' DESC');
     }
+
+    public function visitTable(Table $table){
+        $aliasString = "";
+        if(!empty($table->getAlias())){
+            $aliasString = " AS " . $table->getAlias();
+        }
+        return new QueryFragment($table->getName() . $aliasString);
+    }
 }
