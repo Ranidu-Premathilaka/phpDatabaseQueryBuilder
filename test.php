@@ -29,3 +29,16 @@ $selectQuery->setTable(new Table('users'))
 $queryCompiler = new SelectSqlQueryCompiler();
 $sql = $queryCompiler->compile($selectQuery);
 echo print_r($sql, true);
+
+echo "\n\n";
+$updateQuery = new UpdateQuery();
+echo "Init update Query...\n";
+$updateQuery->setTable(new Table('users'))
+            ->addSetClause(new IsEquals(new Column('status'), new FunctionCall('LOWER', new Literal('active'), new Literal('inactive'))))
+            ->addSetClause(new IsEquals(new Column('last_login'), new Literal(date('Y-m-d H:i:s'))))
+            ->setWhere(new IsEquals(new Column('id'), new Literal(1234)))
+;
+
+$queryCompiler = new UpdateSqlQueryCompiler();
+$sql = $queryCompiler->compile($updateQuery);
+echo print_r($sql, true);
