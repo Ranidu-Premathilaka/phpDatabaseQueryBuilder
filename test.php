@@ -16,6 +16,8 @@ $selectQuery->setTable('users')
                     ))
             ->addOrderBy(new Desc(new Column('created_at')))
             ->addOrderBy(new Asc(new Column('name')))
+            ->addLimit(new Literal(10))
+            ->addOffset(new Literal(5))
             
 ;
 
