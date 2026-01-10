@@ -25,6 +25,17 @@ abstract class SqlQueryCompiler implements QueryCompilerInterface{
 
     }
 
+    protected function compileJoins(array $joins): QueryFragmentInterface{
+        $fragments = [];
+        $visitor = new SqlJoinVisitor($this->ParameterContainer);
+
+        foreach($joins as $join){
+            $fragments[] = $join->accept($visitor)->getString();
+        }
+
+        return new QueryFragment(' ' . implode(' ', $fragments));        
+    }
+
     protected function compileLimit(ExpressionInterface $limit): QueryFragmentInterface{
         $visitor = new sqlExpressionVisitor($this->ParameterContainer);
         $limitFragment = $limit->accept($visitor);

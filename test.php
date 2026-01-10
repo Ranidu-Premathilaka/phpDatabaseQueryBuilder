@@ -18,7 +18,10 @@ $selectQuery->setTable('users')
             ->addOrderBy(new Asc(new Column('name')))
             ->addLimit(new Literal(10))
             ->addOffset(new Literal(5))
-            
+            ->innerJoin(new Table('orders'), new IsEquals(new Column("id", new Table('users')), new Literal('1234')))
+            ->leftJoin(new Table('profiles'), new IsEquals(new Column('id', new Table('profiles')), new Column('user_id', new Table('profiles'))))
+            ->rightJoin(new Table('payments'), new IsEquals(new Column('id', new Table('users')), new Column('user_id', new Table('payments'))))
+            ->outerJoin(new Table('subscriptions'), new IsEquals(new Column('id', new Table('users')), new Column('user_id', new Table('subscriptions'))))
 ;
 
 $queryCompiler = new SelectSqlQueryCompiler();

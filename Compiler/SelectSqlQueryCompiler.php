@@ -6,6 +6,11 @@ final class SelectSqlQueryCompiler extends SqlQueryCompiler{
         $columns = implode(', ', $query->getColumns());
         $sql = "SELECT $columns FROM $table";
 
+        if($query->getJoins()){
+            $joinFragment = $this->compileJoins($query->getJoins());
+            $sql .= ' ' . $joinFragment->getString();
+        }
+
         if($query->getWhere()){
             $whereQueryFragment = $this->compileWhere($query->getWhere());
             $sql .= $whereQueryFragment->getString();
