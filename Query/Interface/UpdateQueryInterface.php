@@ -1,7 +1,6 @@
 <?php
 
 interface UpdateQueryInterface extends QueryInterface{
-    public function __construct();
-    public function addSetClause(IsEquals $conditions): void;
+    public function addSetClause(IsEquals $conditions);
     public function getSetClauses(): array;
 }
