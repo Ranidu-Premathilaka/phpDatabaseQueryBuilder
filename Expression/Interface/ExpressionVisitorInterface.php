@@ -9,5 +9,6 @@ Interface ExpressionVisitorInterface{
     public function visitTable(Table $table);
     public function visitBoolean(Boolean $boolean);
     public function visitNullLiteral(NullLiteral $null);
+    public function visitBinaryOperation(BinaryOperation $binaryOperation);
 
 }

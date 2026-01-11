@@ -60,4 +60,12 @@ class sqlExpressionVisitor implements ExpressionVisitorInterface{
     public function visitNullLiteral(NullLiteral $null){
         return new QueryFragment('NULL');
     }
+
+    public function visitBinaryOperation(BinaryOperation $binaryOperation){
+        $leftFragment = $binaryOperation->getLeft()->accept($this);
+        $rightFragment = $binaryOperation->getRight()->accept($this);
+        $operator = $binaryOperation->getOperator();
+        
+        return new QueryFragment($leftFragment->getString() . ' ' . $operator . ' ' . $rightFragment->getString());
+    }
 }
