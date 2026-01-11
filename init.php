@@ -53,6 +53,8 @@ require_once __DIR__ . '/Expression/Literal.php';
 require_once __DIR__ . '/Expression/Asc.php';
 require_once __DIR__ . '/Expression/Desc.php';
 require_once __DIR__ . '/Expression/Table.php';
+require_once __DIR__ . '/Expression/Boolean.php';
+require_once __DIR__ . '/Expression/NullLiteral.php';
 require_once __DIR__ . '/Expression/Visitor/sqlExpressionVisitor.php';
 
 // Predicate implementations

@@ -51,4 +51,13 @@ class sqlExpressionVisitor implements ExpressionVisitorInterface{
         }
         return new QueryFragment($table->getName() . $aliasString);
     }
+
+    public function visitBoolean(Boolean $boolean){
+        $value = $boolean->getValue() ? 'TRUE' : 'FALSE';
+        return new QueryFragment($value);
+    }
+
+    public function visitNullLiteral(NullLiteral $null){
+        return new QueryFragment('NULL');
+    }
 }

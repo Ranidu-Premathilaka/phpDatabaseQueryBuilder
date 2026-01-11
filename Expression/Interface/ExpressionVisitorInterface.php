@@ -7,5 +7,7 @@ Interface ExpressionVisitorInterface{
     public function visitAsc(Asc $asc);
     public function visitDesc(Desc $desc);
     public function visitTable(Table $table);
+    public function visitBoolean(Boolean $boolean);
+    public function visitNullLiteral(NullLiteral $null);
 
 }
