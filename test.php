@@ -60,3 +60,36 @@ $deleteQuery->setTable(new Table('users'))
 $queryCompiler = new DeleteSqlQueryCompiler();
 $sql = $queryCompiler->compile($deleteQuery);
 echo print_r($sql, true);
+
+echo "\n\n";
+$inTestQuery = new SelectQuery();
+echo "Init IN and NOT IN test Query...\n";
+$inTestQuery->setTable(new Table('products'))
+            ->setColumns(new Column('id'))
+            ->setColumns(new Column('name'))
+            ->setColumns(new Column('price'))
+            ->setWhere(new AndCondition(
+                new IsIn(new Column('category_id'), [
+                    new Literal(1),
+                    new Literal(2),
+                    new Literal(3)
+                ]),
+                new IsNotIn(new Column('status'), [
+                    new Literal('discontinued'),
+                    new Literal('out_of_stock')
+                ]),
+                new IsIn(new Column('brand'), [
+                    new FunctionCall('UPPER', new Literal('nike')),
+                    new FunctionCall('UPPER', new Literal('adidas')),
+                    new Literal('Puma')
+                ]),
+                new GreaterThanOrEquals(new Column('price'), new Literal(10.00)),
+                new IsNotIn(new Column('supplier_id'), [
+                    new Literal(999),
+                    new Column('id', new Table('banned_suppliers'))
+                ])
+            ))
+;
+$queryCompiler = new SelectSqlQueryCompiler();
+$sql = $queryCompiler->compile($inTestQuery);
+echo print_r($sql, true);

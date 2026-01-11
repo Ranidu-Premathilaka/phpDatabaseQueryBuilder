@@ -15,9 +15,11 @@ require_once __DIR__ . '/Expression/Interface/ExpressionVisitorInterface.php';
 require_once __DIR__ . '/Predicate/Interface/PredicateInterface.php';
 require_once __DIR__ . '/Predicate/Interface/ComparisonInterface.php';
 require_once __DIR__ . '/Predicate/Interface/LogicalInterface.php';
+require_once __DIR__ . '/Predicate/Interface/InInterface.php';
 require_once __DIR__ . '/Predicate/Interface/PredicateVisitorInterface.php';
 require_once __DIR__ . '/Predicate/Interface/ComparisonVisitorInterface.php';
 require_once __DIR__ . '/Predicate/Interface/LogicalVisitorInterface.php';
+require_once __DIR__ . '/Predicate/Interface/InVisitorInterface.php';
 require_once __DIR__ . '/Predicate/Interface/TotalPredicateVisitorInterface.php';
 
 // Join interfaces
@@ -66,6 +68,9 @@ require_once __DIR__ . '/Predicate/Comparison/GreaterThan.php';
 require_once __DIR__ . '/Predicate/Comparison/LessThanOrEquals.php';
 require_once __DIR__ . '/Predicate/Comparison/GreaterThanOrEquals.php';
 require_once __DIR__ . '/Predicate/Comparison/Is.php';
+require_once __DIR__ . '/Predicate/In/In.php';
+require_once __DIR__ . '/Predicate/In/IsIn.php';
+require_once __DIR__ . '/Predicate/In/IsNotIn.php';
 require_once __DIR__ . '/Predicate/Logical/AndCondition.php';
 require_once __DIR__ . '/Predicate/Logical/OrCondition.php';
 require_once __DIR__ . '/Predicate/Visitor/SqlPredicateVisitor.php';
