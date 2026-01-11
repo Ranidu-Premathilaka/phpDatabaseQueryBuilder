@@ -13,6 +13,12 @@ final class SqlPredicateVisitor implements TotalPredicateVisitorInterface{
 
     }
 
+    public function visitIs(Is $is): QueryFragmentInterface{
+        $leftFragment = $is->getLeft()->accept($this->sqlExpressionVisitor);
+        $rightFragment = $is->getRight()->accept($this->sqlExpressionVisitor);
+        return new QueryFragment($leftFragment->getString() . ' IS ' . $rightFragment->getString());
+    }
+
     public function visitAnd(AndCondition $andCondition): QueryFragmentInterface{
         $conditions = $andCondition->getConditions();
         $sqlConditions = array_map(function($condition) {
