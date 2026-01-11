@@ -61,6 +61,10 @@ class PostgresExpressionVisitor implements ExpressionVisitorInterface{
         return new QueryFragment('NULL');
     }
 
+    public function visitAllColumnsLiteral(AllColumnsLiteral $allColumns){
+        return new QueryFragment('*');
+    }
+
     public function visitBinaryOperation(BinaryOperation $binaryOperation){
         $leftFragment = $binaryOperation->getLeft()->accept($this);
         $rightFragment = $binaryOperation->getRight()->accept($this);
