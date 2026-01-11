@@ -10,8 +10,8 @@ class UpdateQuery implements UpdateQueryInterface{
         return $this;
     }
 
-    public function addSetClause(IsEquals $conditions){
-        $this->setClauses[] = $conditions;
+    public function addSetClause(IsEquals ...$conditions){
+        $this->setClauses = $conditions;
         return $this;
     }
 

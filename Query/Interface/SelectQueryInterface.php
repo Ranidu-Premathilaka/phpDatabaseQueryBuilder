@@ -1,8 +1,8 @@
 <?php
 
 interface SelectQueryInterface extends QueryInterface {
-    public function setColumns(ExpressionInterface $columns);
-    public function addOrderBy(ExpressionInterface $expression);
+    public function setColumns(ExpressionInterface ...$columns);
+    public function addOrderBy(ExpressionInterface ...$expression);
     public function addLimit(ExpressionInterface $limit);
     public function addOffset(ExpressionInterface $offset);
     public function innerJoin(ExpressionInterface $table, PredicateInterface $onCondition);

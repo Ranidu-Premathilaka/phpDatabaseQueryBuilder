@@ -4,9 +4,7 @@ require_once __DIR__ . '/init.php';
 $selectQuery = new SelectQuery();
 echo "Init select Query...\n";
 $selectQuery->setTable(new Table('users'))
-           ->setColumns(new Column('id'))
-           ->setColumns(new Column('name'))
-           ->setColumns(new Column('email'))
+           ->setColumns()
            ->setWhere(new AndCondition(
                         new IsEquals(new Column('country'), new Literal('USA')),
                         new IsEquals(new Column('status'), new FunctionCall('LOWER',new Literal('active'), new Literal('inactive'))),
@@ -17,7 +15,6 @@ $selectQuery->setTable(new Table('users'))
                         )
                     ))
             ->addOrderBy(new Desc(new Column('created_at')))
-            ->addOrderBy(new Asc(new Column('name')))
             ->addLimit(new Literal(10))
             ->addOffset(new Literal(5))
             ->innerJoin(new Table('orders'), new IsEquals(new Column("id", new Table('users')), new Literal('1234')))
@@ -34,8 +31,10 @@ echo "\n\n";
 $updateQuery = new UpdateQuery();
 echo "Init update Query...\n";
 $updateQuery->setTable(new Table('users'))
-            ->addSetClause(new IsEquals(new Column('status'), new FunctionCall('LOWER', new Literal('active'), new Literal('inactive'))))
-            ->addSetClause(new IsEquals(new Column('last_login'), new Literal(date('Y-m-d H:i:s'))))
+            ->addSetClause(
+                new IsEquals(new Column('status'), new FunctionCall('LOWER', new Literal('active'), new Literal('inactive'))),
+                new IsEquals(new Column('last_login'), new Literal(date('Y-m-d H:i:s')))
+            )
             ->setWhere(new AndCondition(
                 new Is(new Column('id'), new Boolean(false)),
                 new IsEquals(new Column('role'), new Literal('user')),
@@ -98,18 +97,20 @@ echo "\n\n";
 $incrementQuery = new UpdateQuery();
 echo "Init increment/decrement Query...\n";
 $incrementQuery->setTable(new Table('accounts'))
-               ->addSetClause(new IsEquals(
-                   new Column('balance'), 
-                   new BinaryOperation(new Column('balance'), '+', new Literal(100))
-               ))
-               ->addSetClause(new IsEquals(
-                   new Column('total_transactions'), 
-                   new BinaryOperation(new Column('total_transactions'), '+', new Literal(1))
-               ))
-               ->addSetClause(new IsEquals(
-                   new Column('discount_percentage'), 
-                   new BinaryOperation(new Column('discount_percentage'), '*', new Literal(1.1))
-               ))
+               ->addSetClause(
+                   new IsEquals(
+                       new Column('balance'), 
+                       new BinaryOperation(new Column('balance'), '+', new Literal(100))
+                   ),
+                   new IsEquals(
+                       new Column('total_transactions'), 
+                       new BinaryOperation(new Column('total_transactions'), '+', new Literal(1))
+                   ),
+                   new IsEquals(
+                       new Column('discount_percentage'), 
+                       new BinaryOperation(new Column('discount_percentage'), '*', new Literal(1.1))
+                   )
+               )
                ->setWhere(new AndCondition(
                    new IsEquals(new Column('id'), new Literal(42)),
                    new IsEquals(new Column('status'), new Literal('active'))
@@ -149,9 +150,6 @@ $insertQuery->setTable(new Table('users'))
                 new FunctionCall('LOWER', new Literal('ACTIVE'))
             )
             ->setReturning(
-                new Column('id'),
-                new Column('name'),
-                new Column('email')
             )
 ;
 

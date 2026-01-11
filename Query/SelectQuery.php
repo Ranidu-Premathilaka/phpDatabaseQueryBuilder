@@ -27,8 +27,8 @@ class SelectQuery implements SelectQueryInterface{
         return $this;
     }
 
-    public function addOrderBy(ExpressionInterface $expression){
-        $this ->orderBy[] = $expression;
+    public function addOrderBy(ExpressionInterface ...$expression){
+        $this ->orderBy = $expression;
         return $this;
     }
 
