@@ -57,4 +57,22 @@ final class SqlPredicateVisitor implements TotalPredicateVisitorInterface{
         }, $conditions);
         return new QueryFragment('(' . implode(' OR ', $sqlConditions) . ')');
     }
+
+    public function visitIsIn(IsIn $isIn): QueryFragmentInterface{
+        $columnFragment = $isIn->getColumn()->accept($this->sqlExpressionVisitor);
+        $values = $isIn->getValues();
+        $valueFragments = array_map(function($value) {
+            return $value->accept($this->sqlExpressionVisitor)->getString();
+        }, $values);
+        return new QueryFragment($columnFragment->getString() . ' IN (' . implode(', ', $valueFragments) . ')');
+    }
+
+    public function visitIsNotIn(IsNotIn $isNotIn): QueryFragmentInterface{
+        $columnFragment = $isNotIn->getColumn()->accept($this->sqlExpressionVisitor);
+        $values = $isNotIn->getValues();
+        $valueFragments = array_map(function($value) {
+            return $value->accept($this->sqlExpressionVisitor)->getString();
+        }, $values);
+        return new QueryFragment($columnFragment->getString() . ' NOT IN (' . implode(', ', $valueFragments) . ')');
+    }
 }
