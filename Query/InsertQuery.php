@@ -23,6 +23,11 @@ class InsertQuery implements InsertQueryInterface{
     }
 
     public function setReturning(ExpressionInterface ...$columns){
+        if(count($columns) === 0){
+            $this->returning = [new AllColumnsLiteral()];
+            return $this;
+        }
+
         $this->returning = $columns;
         return $this;
     }

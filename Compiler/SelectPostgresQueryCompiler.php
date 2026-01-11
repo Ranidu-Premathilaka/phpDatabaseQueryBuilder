@@ -4,12 +4,8 @@ final class SelectPostgresQueryCompiler extends PostgresQueryCompiler{
     public function compile(QueryInterface $query) : CompiledQueryInterface{
         $sql = "SELECT ";
 
-        if(empty($query->getColumns())){
-            $sql .= '*';
-        }else {
-            $columnsFragment = $this->compileColumns($query->getColumns());
-            $sql .= $columnsFragment->getString();
-        }
+        $columnsFragment = $this->compileColumns($query->getColumns());
+        $sql .= $columnsFragment->getString();
 
         $sql .= " FROM ";
         $tableFragment = $this->compileTable($query->getTable());

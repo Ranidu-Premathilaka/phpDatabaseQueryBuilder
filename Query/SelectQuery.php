@@ -13,8 +13,12 @@ class SelectQuery implements SelectQueryInterface{
         return $this;
     }
 
-    public function setColumns(ExpressionInterface $columns){
-        $this->columns[] = $columns;
+    public function setColumns(ExpressionInterface ...$columns){
+        if(count($columns) === 0){
+            $this->columns = [new AllColumnsLiteral()];
+            return $this;
+        }
+        $this->columns = $columns;
         return $this;
     }
 
