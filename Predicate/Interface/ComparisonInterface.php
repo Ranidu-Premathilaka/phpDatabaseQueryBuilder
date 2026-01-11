@@ -1,6 +1,6 @@
 <?php
 Interface ComparisonInterface extends PredicateInterface{
-    public function __construct(ExpressionInterface $column,  ExpressionInterface $value);
-    public function getColumn(): ExpressionInterface;
-    public function getValue(): ExpressionInterface;
+    public function __construct(ExpressionInterface $left,  ExpressionInterface $right);
+    public function getLeft(): ExpressionInterface;
+    public function getRight(): ExpressionInterface;
 }
