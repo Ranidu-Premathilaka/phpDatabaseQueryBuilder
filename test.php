@@ -36,7 +36,11 @@ echo "Init update Query...\n";
 $updateQuery->setTable(new Table('users'))
             ->addSetClause(new IsEquals(new Column('status'), new FunctionCall('LOWER', new Literal('active'), new Literal('inactive'))))
             ->addSetClause(new IsEquals(new Column('last_login'), new Literal(date('Y-m-d H:i:s'))))
-            ->setWhere(new IsEquals(new Column('id'), new Literal(1234)))
+            ->setWhere(new AndCondition(
+                new Is(new Column('id'), new Boolean(false)),
+                new IsEquals(new Column('role'), new Literal('user')),
+                new Is(new Column('deleted_at'), new NullLiteral())
+            ))
 ;
 
 $queryCompiler = new UpdateSqlQueryCompiler();
@@ -49,7 +53,8 @@ echo "Init delete Query...\n";
 $deleteQuery->setTable(new Table('users'))
             ->setWhere(new AndCondition(
                 new IsEquals(new Column('id'), new Literal(1234)),
-                new IsEquals(new Column('status'), new Literal('inactive'))
+                new IsEquals(new Column('status'), new Literal('inactive')),
+                new IsEquals(new Column('deleted'), new Boolean(true)),
             ))
 ;
 $queryCompiler = new DeleteSqlQueryCompiler();

@@ -59,6 +59,7 @@ require_once __DIR__ . '/Expression/Visitor/sqlExpressionVisitor.php';
 
 // Predicate implementations
 require_once __DIR__ . '/Predicate/Comparison/IsEquals.php';
+require_once __DIR__ . '/Predicate/Comparison/Is.php';
 require_once __DIR__ . '/Predicate/Logical/AndCondition.php';
 require_once __DIR__ . '/Predicate/Logical/OrCondition.php';
 require_once __DIR__ . '/Predicate/Visitor/SqlPredicateVisitor.php';
