@@ -76,4 +76,30 @@ abstract class SqlQueryCompiler implements QueryCompilerInterface{
         $offsetFragment = $offset->accept($visitor);
         return new QueryFragment(' OFFSET ' . $offsetFragment->getString());
     }
+
+    protected function compileValues(array $records): QueryFragmentInterface{
+        $visitor = new SqlExpressionVisitor($this->ParameterContainer);
+        $recordFragments = [];
+
+        foreach($records as $record){
+            $valueFragments = [];
+            foreach($record as $value){
+                $valueFragments[] = $value->accept($visitor)->getString();
+            }
+            $recordFragments[] = '(' . implode(', ', $valueFragments) . ')';
+        }
+
+        return new QueryFragment(' VALUES ' . implode(', ', $recordFragments));
+    }
+
+    protected function compileReturning(array $columns): QueryFragmentInterface{
+        $columnFragments = [];
+        $visitor = new SqlExpressionVisitor($this->ParameterContainer);
+
+        foreach($columns as $column){
+            $columnFragments[] = $column->accept($visitor)->getString();
+        }
+
+        return new QueryFragment(' RETURNING ' . implode(', ', $columnFragments));
+    }
 }
