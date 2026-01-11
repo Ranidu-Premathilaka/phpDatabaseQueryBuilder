@@ -6,11 +6,34 @@ final class SqlPredicateVisitor implements TotalPredicateVisitorInterface{
         $this->sqlExpressionVisitor = new sqlExpressionVisitor($parameterContainerReference);
     }
 
-    public function visitEquals(IsEquals $equals): QueryFragmentInterface{
-        $columnFragment = $equals->getColumn()->accept($this->sqlExpressionVisitor);
-        $valueFragment = $equals->getValue()->accept($this->sqlExpressionVisitor);
-        return new QueryFragment($columnFragment->getString() . ' = ' . $valueFragment->getString());
+    private function comparisonToSql(ComparisonInterface $comparison, string $operator): QueryFragmentInterface{
+        $columnFragment = $comparison->getLeft()->accept($this->sqlExpressionVisitor);
+        $valueFragment = $comparison->getRight()->accept($this->sqlExpressionVisitor);
+        return new QueryFragment($columnFragment->getString() . ' ' . $operator . ' ' . $valueFragment->getString());
+    }
 
+    public function visitEquals(IsEquals $equals): QueryFragmentInterface{
+        return $this->comparisonToSql($equals, '=');
+    }
+
+    public function visitNotEquals(NotEquals $notEquals): QueryFragmentInterface{
+        return $this->comparisonToSql($notEquals, '!=');
+    }
+
+    public function visitLessThan(LessThan $lessThan): QueryFragmentInterface{
+        return $this->comparisonToSql($lessThan, '<');
+    }
+
+    public function visitGreaterThan(GreaterThan $greaterThan): QueryFragmentInterface{
+        return $this->comparisonToSql($greaterThan, '>');
+    }
+
+    public function visitLessThanOrEquals(LessThanOrEquals $lessThanOrEquals): QueryFragmentInterface{
+        return $this->comparisonToSql($lessThanOrEquals, '<=');
+    }
+
+    public function visitGreaterThanOrEquals(GreaterThanOrEquals $greaterThanOrEquals): QueryFragmentInterface{
+        return $this->comparisonToSql($greaterThanOrEquals, '>=');
     }
 
     public function visitIs(Is $is): QueryFragmentInterface{

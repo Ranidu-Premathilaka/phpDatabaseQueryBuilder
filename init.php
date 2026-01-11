@@ -58,7 +58,13 @@ require_once __DIR__ . '/Expression/NullLiteral.php';
 require_once __DIR__ . '/Expression/Visitor/sqlExpressionVisitor.php';
 
 // Predicate implementations
+require_once __DIR__ . '/Predicate/Comparison/Comparison.php';
 require_once __DIR__ . '/Predicate/Comparison/IsEquals.php';
+require_once __DIR__ . '/Predicate/Comparison/NotEquals.php';
+require_once __DIR__ . '/Predicate/Comparison/LessThan.php';
+require_once __DIR__ . '/Predicate/Comparison/GreaterThan.php';
+require_once __DIR__ . '/Predicate/Comparison/LessThanOrEquals.php';
+require_once __DIR__ . '/Predicate/Comparison/GreaterThanOrEquals.php';
 require_once __DIR__ . '/Predicate/Comparison/Is.php';
 require_once __DIR__ . '/Predicate/Logical/AndCondition.php';
 require_once __DIR__ . '/Predicate/Logical/OrCondition.php';

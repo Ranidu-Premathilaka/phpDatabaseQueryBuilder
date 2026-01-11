@@ -12,7 +12,7 @@ $selectQuery->setTable(new Table('users'))
                         new IsEquals(new Column('status'), new FunctionCall('LOWER',new Literal('active'), new Literal('inactive'))),
                         new IsEquals(new Column('age'), new Literal(30)),
                         new OrCondition(
-                            new IsEquals(new Column('role'), new Literal('admin')),
+                            new LessThanOrEquals(new Column('signup_date'), new Literal('2022-01-01')),
                             new IsEquals(new Column('role'), new Literal('user'))
                         )
                     ))
