@@ -1,6 +1,6 @@
 <?php
-// Base class for handling SQL compilation tasks
-abstract class SqlQueryCompiler implements QueryCompilerInterface{
+// Base class for handling PostgreSQL compilation tasks
+abstract class PostgresQueryCompiler implements QueryCompilerInterface{
     protected ParameterContainerInterface $ParameterContainer;    
 
     public function __construct(){
@@ -8,7 +8,7 @@ abstract class SqlQueryCompiler implements QueryCompilerInterface{
     }
 
     protected function compileTable(ExpressionInterface $table): QueryFragmentInterface{
-        $visitor = new SqlExpressionVisitor($this->ParameterContainer);
+        $visitor = new PostgresExpressionVisitor($this->ParameterContainer);
         $tableString = $table->accept($visitor)->getString();
 
         return new QueryFragment($tableString);
@@ -16,7 +16,7 @@ abstract class SqlQueryCompiler implements QueryCompilerInterface{
 
     protected function compileColumns(array $columns): QueryFragmentInterface{
         $columnFragments = [];
-        $visitor = new SqlExpressionVisitor($this->ParameterContainer);
+        $visitor = new PostgresExpressionVisitor($this->ParameterContainer);
 
         foreach($columns as $column){
             $columnFragments[] = $column->accept($visitor)->getString();
@@ -26,14 +26,14 @@ abstract class SqlQueryCompiler implements QueryCompilerInterface{
     }
 
     protected function compileWhere(PredicateInterface $predicate): QueryFragmentInterface{
-        $visitor = new SqlPredicateVisitor($this->ParameterContainer);
+        $visitor = new PostgresPredicateVisitor($this->ParameterContainer);
         $queryFragment = $predicate->accept($visitor);
         return new QueryFragment(' WHERE ' . $queryFragment->getString());
     }
 
     protected function compileSetClauses(array $setClauses): QueryFragmentInterface{
         $fragments = [];
-        $visitor = new SqlPredicateVisitor($this->ParameterContainer);
+        $visitor = new PostgresPredicateVisitor($this->ParameterContainer);
 
         foreach($setClauses as $expressionObject){
             $fragments[] = $expressionObject->accept($visitor)->getString();
@@ -44,7 +44,7 @@ abstract class SqlQueryCompiler implements QueryCompilerInterface{
 
     protected function compileOrderBy(array $orderBy): QueryFragmentInterface{
         $fragments = [];
-        $visitor = new SqlExpressionVisitor($this->ParameterContainer);
+        $visitor = new PostgresExpressionVisitor($this->ParameterContainer);
 
         foreach($orderBy as $orderExpression){
             $fragments[] = $orderExpression->accept($visitor)->getString();
@@ -56,7 +56,7 @@ abstract class SqlQueryCompiler implements QueryCompilerInterface{
 
     protected function compileJoins(array $joins): QueryFragmentInterface{
         $fragments = [];
-        $visitor = new SqlJoinVisitor($this->ParameterContainer);
+        $visitor = new PostgresJoinVisitor($this->ParameterContainer);
 
         foreach($joins as $join){
             $fragments[] = $join->accept($visitor)->getString();
@@ -66,19 +66,19 @@ abstract class SqlQueryCompiler implements QueryCompilerInterface{
     }
 
     protected function compileLimit(ExpressionInterface $limit): QueryFragmentInterface{
-        $visitor = new sqlExpressionVisitor($this->ParameterContainer);
+        $visitor = new PostgresExpressionVisitor($this->ParameterContainer);
         $limitFragment = $limit->accept($visitor);
         return new QueryFragment(' LIMIT ' . $limitFragment->getString());
     }
 
     protected function compileOffset(ExpressionInterface $offset): QueryFragmentInterface{
-        $visitor = new sqlExpressionVisitor($this->ParameterContainer);
+        $visitor = new PostgresExpressionVisitor($this->ParameterContainer);
         $offsetFragment = $offset->accept($visitor);
         return new QueryFragment(' OFFSET ' . $offsetFragment->getString());
     }
 
     protected function compileValues(array $records): QueryFragmentInterface{
-        $visitor = new SqlExpressionVisitor($this->ParameterContainer);
+        $visitor = new PostgresExpressionVisitor($this->ParameterContainer);
         $recordFragments = [];
 
         foreach($records as $record){
@@ -94,7 +94,7 @@ abstract class SqlQueryCompiler implements QueryCompilerInterface{
 
     protected function compileReturning(array $columns): QueryFragmentInterface{
         $columnFragments = [];
-        $visitor = new SqlExpressionVisitor($this->ParameterContainer);
+        $visitor = new PostgresExpressionVisitor($this->ParameterContainer);
 
         foreach($columns as $column){
             $columnFragments[] = $column->accept($visitor)->getString();

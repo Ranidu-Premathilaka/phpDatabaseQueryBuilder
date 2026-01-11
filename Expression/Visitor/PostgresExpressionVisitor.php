@@ -1,5 +1,5 @@
 <?php
-class sqlExpressionVisitor implements ExpressionVisitorInterface{
+class PostgresExpressionVisitor implements ExpressionVisitorInterface{
     private $parameterContainerReference;
 
     public function __construct(ParameterContainerInterface &$parameterContainerReference){

@@ -1,14 +1,14 @@
 <?php
-final class SqlPredicateVisitor implements TotalPredicateVisitorInterface{
-    private $sqlExpressionVisitor;
+final class PostgresPredicateVisitor implements TotalPredicateVisitorInterface{
+    private $postgresExpressionVisitor;
 
     public function __construct(ParameterContainerInterface &$parameterContainerReference){
-        $this->sqlExpressionVisitor = new sqlExpressionVisitor($parameterContainerReference);
+        $this->postgresExpressionVisitor = new PostgresExpressionVisitor($parameterContainerReference);
     }
 
     private function comparisonToSql(ComparisonInterface $comparison, string $operator): QueryFragmentInterface{
-        $columnFragment = $comparison->getLeft()->accept($this->sqlExpressionVisitor);
-        $valueFragment = $comparison->getRight()->accept($this->sqlExpressionVisitor);
+        $columnFragment = $comparison->getLeft()->accept($this->postgresExpressionVisitor);
+        $valueFragment = $comparison->getRight()->accept($this->postgresExpressionVisitor);
         return new QueryFragment($columnFragment->getString() . ' ' . $operator . ' ' . $valueFragment->getString());
     }
 
@@ -37,8 +37,8 @@ final class SqlPredicateVisitor implements TotalPredicateVisitorInterface{
     }
 
     public function visitIs(Is $is): QueryFragmentInterface{
-        $leftFragment = $is->getLeft()->accept($this->sqlExpressionVisitor);
-        $rightFragment = $is->getRight()->accept($this->sqlExpressionVisitor);
+        $leftFragment = $is->getLeft()->accept($this->postgresExpressionVisitor);
+        $rightFragment = $is->getRight()->accept($this->postgresExpressionVisitor);
         return new QueryFragment($leftFragment->getString() . ' IS ' . $rightFragment->getString());
     }
 
@@ -59,19 +59,19 @@ final class SqlPredicateVisitor implements TotalPredicateVisitorInterface{
     }
 
     public function visitIsIn(IsIn $isIn): QueryFragmentInterface{
-        $columnFragment = $isIn->getColumn()->accept($this->sqlExpressionVisitor);
+        $columnFragment = $isIn->getColumn()->accept($this->postgresExpressionVisitor);
         $values = $isIn->getValues();
         $valueFragments = array_map(function($value) {
-            return $value->accept($this->sqlExpressionVisitor)->getString();
+            return $value->accept($this->postgresExpressionVisitor)->getString();
         }, $values);
         return new QueryFragment($columnFragment->getString() . ' IN (' . implode(', ', $valueFragments) . ')');
     }
 
     public function visitIsNotIn(IsNotIn $isNotIn): QueryFragmentInterface{
-        $columnFragment = $isNotIn->getColumn()->accept($this->sqlExpressionVisitor);
+        $columnFragment = $isNotIn->getColumn()->accept($this->postgresExpressionVisitor);
         $values = $isNotIn->getValues();
         $valueFragments = array_map(function($value) {
-            return $value->accept($this->sqlExpressionVisitor)->getString();
+            return $value->accept($this->postgresExpressionVisitor)->getString();
         }, $values);
         return new QueryFragment($columnFragment->getString() . ' NOT IN (' . implode(', ', $valueFragments) . ')');
     }

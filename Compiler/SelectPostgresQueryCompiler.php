@@ -1,6 +1,6 @@
 <?php
 // Final class for orchestrating SELECT query compilation
-final class SelectSqlQueryCompiler extends SqlQueryCompiler{
+final class SelectPostgresQueryCompiler extends PostgresQueryCompiler{
     public function compile(QueryInterface $query) : CompiledQueryInterface{
         $sql = "SELECT ";
 

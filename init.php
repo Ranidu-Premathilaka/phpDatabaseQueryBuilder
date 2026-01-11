@@ -59,7 +59,7 @@ require_once __DIR__ . '/Expression/Table.php';
 require_once __DIR__ . '/Expression/Boolean.php';
 require_once __DIR__ . '/Expression/NullLiteral.php';
 require_once __DIR__ . '/Expression/BinaryOperation.php';
-require_once __DIR__ . '/Expression/Visitor/sqlExpressionVisitor.php';
+require_once __DIR__ . '/Expression/Visitor/PostgresExpressionVisitor.php';
 
 // Predicate implementations
 require_once __DIR__ . '/Predicate/Comparison/Comparison.php';
@@ -75,11 +75,11 @@ require_once __DIR__ . '/Predicate/In/IsIn.php';
 require_once __DIR__ . '/Predicate/In/IsNotIn.php';
 require_once __DIR__ . '/Predicate/Logical/AndCondition.php';
 require_once __DIR__ . '/Predicate/Logical/OrCondition.php';
-require_once __DIR__ . '/Predicate/Visitor/SqlPredicateVisitor.php';
+require_once __DIR__ . '/Predicate/Visitor/PostgresPredicateVisitor.php';
 
 // Join implementations
 require_once __DIR__ . '/Join/Join.php';
-require_once __DIR__ . '/Join/Visitor/SqlJoinVisitor.php';
+require_once __DIR__ . '/Join/Visitor/PostgresJoinVisitor.php';
 
 // Query implementations
 require_once __DIR__ . '/Query/SelectQuery.php';
@@ -88,8 +88,8 @@ require_once __DIR__ . '/Query/DeleteQuery.php';
 require_once __DIR__ . '/Query/InsertQuery.php';
 
 // Compiler implementations
-require_once __DIR__ . '/Compiler/SqlQueryCompiler.php';
-require_once __DIR__ . '/Compiler/SelectSqlQueryCompiler.php';
-require_once __DIR__ . '/Compiler/UpdateSqlQueryCompiler.php';
-require_once __DIR__ . '/Compiler/DeleteSqlQueryCompiler.php';
-require_once __DIR__ . '/Compiler/InsertSqlQueryCompiler.php';
+require_once __DIR__ . '/Compiler/PostgresQueryCompiler.php';
+require_once __DIR__ . '/Compiler/SelectPostgresQueryCompiler.php';
+require_once __DIR__ . '/Compiler/UpdatePostgresQueryCompiler.php';
+require_once __DIR__ . '/Compiler/DeletePostgresQueryCompiler.php';
+require_once __DIR__ . '/Compiler/InsertPostgresQueryCompiler.php';

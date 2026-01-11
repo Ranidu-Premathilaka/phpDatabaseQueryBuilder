@@ -26,7 +26,7 @@ $selectQuery->setTable(new Table('users'))
             ->outerJoin(new Table('subscriptions'), new IsEquals(new Column('id', new Table('users')), new Column('user_id', new Table('subscriptions'))))
 ;
 
-$queryCompiler = new SelectSqlQueryCompiler();
+$queryCompiler = new SelectPostgresQueryCompiler();
 $sql = $queryCompiler->compile($selectQuery);
 echo print_r($sql, true);
 
@@ -43,7 +43,7 @@ $updateQuery->setTable(new Table('users'))
             ))
 ;
 
-$queryCompiler = new UpdateSqlQueryCompiler();
+$queryCompiler = new UpdatePostgresQueryCompiler();
 $sql = $queryCompiler->compile($updateQuery);
 echo print_r($sql, true);
 
@@ -57,7 +57,7 @@ $deleteQuery->setTable(new Table('users'))
                 new IsEquals(new Column('deleted'), new Boolean(true)),
             ))
 ;
-$queryCompiler = new DeleteSqlQueryCompiler();
+$queryCompiler = new DeletePostgresQueryCompiler();
 $sql = $queryCompiler->compile($deleteQuery);
 echo print_r($sql, true);
 
@@ -90,7 +90,7 @@ $inTestQuery->setTable(new Table('products'))
                 ])
             ))
 ;
-$queryCompiler = new SelectSqlQueryCompiler();
+$queryCompiler = new SelectPostgresQueryCompiler();
 $sql = $queryCompiler->compile($inTestQuery);
 echo print_r($sql, true);
 
@@ -116,7 +116,7 @@ $incrementQuery->setTable(new Table('accounts'))
                ))
 ;
 
-$queryCompiler = new UpdateSqlQueryCompiler();
+$queryCompiler = new UpdatePostgresQueryCompiler();
 $sql = $queryCompiler->compile($incrementQuery);
 echo print_r($sql, true);
 
@@ -155,6 +155,6 @@ $insertQuery->setTable(new Table('users'))
             )
 ;
 
-$queryCompiler = new InsertSqlQueryCompiler();
+$queryCompiler = new InsertPostgresQueryCompiler();
 $sql = $queryCompiler->compile($insertQuery);
 echo print_r($sql, true);

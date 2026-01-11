@@ -1,6 +1,6 @@
 <?php
 
-final class InsertSqlQueryCompiler extends SqlQueryCompiler{
+final class InsertPostgresQueryCompiler extends PostgresQueryCompiler{
 
     public function compile(QueryInterface $query) : CompiledQueryInterface{
         $sql = "INSERT INTO ";
