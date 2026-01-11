@@ -93,3 +93,68 @@ $inTestQuery->setTable(new Table('products'))
 $queryCompiler = new SelectSqlQueryCompiler();
 $sql = $queryCompiler->compile($inTestQuery);
 echo print_r($sql, true);
+
+echo "\n\n";
+$incrementQuery = new UpdateQuery();
+echo "Init increment/decrement Query...\n";
+$incrementQuery->setTable(new Table('accounts'))
+               ->addSetClause(new IsEquals(
+                   new Column('balance'), 
+                   new BinaryOperation(new Column('balance'), '+', new Literal(100))
+               ))
+               ->addSetClause(new IsEquals(
+                   new Column('total_transactions'), 
+                   new BinaryOperation(new Column('total_transactions'), '+', new Literal(1))
+               ))
+               ->addSetClause(new IsEquals(
+                   new Column('discount_percentage'), 
+                   new BinaryOperation(new Column('discount_percentage'), '*', new Literal(1.1))
+               ))
+               ->setWhere(new AndCondition(
+                   new IsEquals(new Column('id'), new Literal(42)),
+                   new IsEquals(new Column('status'), new Literal('active'))
+               ))
+;
+
+$queryCompiler = new UpdateSqlQueryCompiler();
+$sql = $queryCompiler->compile($incrementQuery);
+echo print_r($sql, true);
+
+echo "\n\n";
+$insertQuery = new InsertQuery();
+echo "Init INSERT Query with multiple records...\n";
+$insertQuery->setTable(new Table('users'))
+            ->setColumns(
+                new Column('name'),
+                new Column('email'),
+                new Column('age'),
+                new Column('status')
+            )
+            ->addRecord(
+                new Literal('John Doe'),
+                new Literal('john@example.com'),
+                new Literal(25),
+                new Literal('active')
+            )
+            ->addRecord(
+                new Literal('Jane Smith'),
+                new Literal('jane@example.com'),
+                new Literal(30),
+                new Literal('active')
+            )
+            ->addRecord(
+                new Literal('Bob Johnson'),
+                new Literal('bob@example.com'),
+                new Literal(35),
+                new FunctionCall('LOWER', new Literal('ACTIVE'))
+            )
+            ->setReturning(
+                new Column('id'),
+                new Column('name'),
+                new Column('email')
+            )
+;
+
+$queryCompiler = new InsertSqlQueryCompiler();
+$sql = $queryCompiler->compile($insertQuery);
+echo print_r($sql, true);
