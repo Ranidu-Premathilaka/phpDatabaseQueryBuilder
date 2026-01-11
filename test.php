@@ -42,3 +42,16 @@ $updateQuery->setTable(new Table('users'))
 $queryCompiler = new UpdateSqlQueryCompiler();
 $sql = $queryCompiler->compile($updateQuery);
 echo print_r($sql, true);
+
+echo "\n\n";
+$deleteQuery = new DeleteQuery();
+echo "Init delete Query...\n";
+$deleteQuery->setTable(new Table('users'))
+            ->setWhere(new AndCondition(
+                new IsEquals(new Column('id'), new Literal(1234)),
+                new IsEquals(new Column('status'), new Literal('inactive'))
+            ))
+;
+$queryCompiler = new DeleteSqlQueryCompiler();
+$sql = $queryCompiler->compile($deleteQuery);
+echo print_r($sql, true);

@@ -28,6 +28,7 @@ require_once __DIR__ . '/Join/Interface/JoinVisitorInterface.php';
 require_once __DIR__ . '/Query/Interface/QueryInterface.php';
 require_once __DIR__ . '/Query/Interface/SelectQueryInterface.php';
 require_once __DIR__ . '/Query/Interface/UpdateQueryInterface.php';
+require_once __DIR__ . '/Query/Interface/DeleteQueryInterface.php';
 
 // Compiler interfaces
 require_once __DIR__ . '/Compiler/Interface/QueryCompilerInterface.php';
@@ -67,8 +68,10 @@ require_once __DIR__ . '/Join/Visitor/SqlJoinVisitor.php';
 // Query implementations
 require_once __DIR__ . '/Query/SelectQuery.php';
 require_once __DIR__ . '/Query/UpdateQuery.php';
+require_once __DIR__ . '/Query/DeleteQuery.php';
 
 // Compiler implementations
 require_once __DIR__ . '/Compiler/SqlQueryCompiler.php';
 require_once __DIR__ . '/Compiler/SelectSqlQueryCompiler.php';
 require_once __DIR__ . '/Compiler/UpdateSqlQueryCompiler.php';
+require_once __DIR__ . '/Compiler/DeleteSqlQueryCompiler.php';
